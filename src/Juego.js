@@ -10,8 +10,8 @@ function Juego() {
 
     useEffect(() => {
         axios.get('https://countriesnow.space/api/v0.1/countries/flag/images')
-            .then((response) => {
-            setPais(response.data);
+            .then((res) => {
+            setPais(res.data.data);
             setIsLoading(false);
             })
             .catch((error) => {
@@ -21,12 +21,12 @@ function Juego() {
         }, []);
 
     function ConseguirBandera() {
-        setPregunta(pais.data[Math.floor(Math.random() * 220)])
         console.log(pais)
+        let posicion = Math.floor(Math.random() * 220)
+        setPregunta(pais[posicion])
         console.log(pregunta.flag)
         return pregunta.flag
     }
-    ConseguirBandera()
 
     if(isLoading){
     return(
@@ -43,6 +43,7 @@ function Juego() {
             <input type="text" id="bandera" name="bandera" required> Adivine el pais: </input>
         </div>
     );
+    
 
 }
 
