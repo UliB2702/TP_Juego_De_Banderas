@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.Bandera {
+  width: 500px;
+  height: 250px;
+}
+
+
+.DiferenteLetra{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
