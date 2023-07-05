@@ -8,6 +8,7 @@ function Juego() {
     const [pais, setPais] = useState('');
     const [pregunta, setPregunta] = useState('');
     const [puntaje, setPuntaje] = useState(0);
+    const [pulsado, setPulsado] = useState(false);
 
     useEffect(() => {
         axios.get('https://countriesnow.space/api/v0.1/countries/flag/images')
@@ -35,10 +36,11 @@ function Juego() {
     }
 
     const IniciarJuego = (e) => {
+        setPulsado(true)
         e.target.parentNode.removeChild(e.target)
         ConseguirBandera()
     }
-
+    
     const CambiarPuntaje = (e) => {
         e.preventDefault()
         const datos = new FormData(e.target)
@@ -53,7 +55,20 @@ function Juego() {
             nuevoPuntaje = puntaje - 1
             setPuntaje(nuevoPuntaje)
         }
+        datos.delete("respuesta")
         ConseguirBandera()
+    }
+
+    const RestoDelJuego = () => {
+
+        return(<div id='Restodeljuego'>
+            <h4 className='DiferenteLetra outline shadow'> Puntaje: {`${puntaje}`} </h4><br/>
+            <img className='Bandera shadow' alt='Bandera' src={`${pregunta.imagen}`}/><br/><br/>
+            <form onSubmit={CambiarPuntaje}> 
+                <input className='form-control text-center achicar shadow' type="text" placeholder="Ingrese el nombre de la bandera" name='respuesta' aria-label="default input example"></input> <br/>
+                <button type="submit" className='btn btn-primary achicar form-control shadow'> Enviar </button>
+            </form> <br/>
+        </div>)
     }
     
     if(isLoading){
@@ -62,29 +77,22 @@ function Juego() {
             <h2> Cargando ... </h2>
         </div>
     );
+
     }
     return(
-        <div className='App'>
-            <h3 className='DiferenteLetra'> ¿Qué bandera es esta? </h3>
-            <div/>
-            <div className='container'>
-            <button onClick={IniciarJuego} className='btn btn-primary achicar form-control'> Iniciar Juego</button> <br/><br/>
-            <div id='Restodeljuego' className='Desactivar'>
-            <img className='Bandera' alt='Bandera' src={`${pregunta.imagen}`}/><br/><br/>
-            <form onSubmit={CambiarPuntaje}> 
-                <input className='form-control text-center achicar' type="text" placeholder="Ingrese el nombre de la bandera" name='respuesta' aria-label="default input example"></input> <br/>
-                <button type="submit" className='btn btn-primary achicar form-control'> Enviar </button>
-            </form> <br/>
-            <h4 className='DiferenteLetra'> Puntaje: {`${puntaje}`} </h4>
-            </div>
+        <div className='App'><br/><br/>
+            <h1 className='DiferenteLetra '> ¿Qué bandera es esta? </h1>
+            <br/><br/>
+            <div id='Juego' className='container'>
+                <button onClick={IniciarJuego} className='btn btn-primary achicar form-control'> Iniciar Juego</button> <br/><br/>
+                {pulsado ? (
+                <RestoDelJuego />
+                 ) : (
+                    <div></div>
+                 )}
             </div>
         </div>
     );
-    
-/* 
-    <input type="text" id="bandera" name="bandera" required> Ingrese el pais </input>
-    <input type="submit" value='Submit'> Enviar </input>
-*/ 
   
 }
 

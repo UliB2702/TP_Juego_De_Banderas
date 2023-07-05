@@ -46,3 +46,21 @@
 .DiferenteLetra{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
+
+
+body {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/002/560/867/original/outline-of-world-map-on-white-background-vector.jpg");
+  background-repeat: repeat-y;
+  background-size: 100%;
+}
+
+.outline{
+  outline-style: double;
+  outline-color: rgb(0, 0, 0);
+  padding-inline: auto;
+  background-color: aliceblue;
+}
+
+.shadow{
+  box-shadow: 10px 5px 5px black;
+}
